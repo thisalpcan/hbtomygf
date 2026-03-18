@@ -1,10 +1,10 @@
 // =============================================
 //  CONFIG
 // =============================================
-const API_BASE     = 'http://localhost:3000/api';
-const ADMIN_PASS   = 'admin123';    // ← admin şifreni buradan değiştir
-const SECRET_PASS  = 'nurefsan';    // ← gizli mesaj şifresi
-const SECRET_MSG   = `Seni çok seviyorum Nurefşan. Bu sitenin her köşesi, seni ne kadar özel hissettiğini görmek için yapıldı. İyi ki doğdun, iyi ki varsın. ❤️`;
+const API_BASE = 'https://hbtomygf.onrender.com/api';
+const ADMIN_PASS   = 'dgkoadmin123';    // ← admin şifreni buradan değiştir
+const SECRET_PASS  = 'dgkotome';    // ← gizli mesaj şifresi
+const SECRET_MSG   = `Seni çok seviyorum Nurefşan'ım. Bu sitenin her köşesi, seni ne kadar sevdiğimizi görmen için yapıldı. İyi ki doğdun, iyi ki varsın. ❤️`;
 
 // =============================================
 //  CUSTOM CURSOR
@@ -50,16 +50,16 @@ themeBtn.addEventListener('click', () => {
 // =============================================
 const music      = document.getElementById('bgMusic');
 const musicBtn   = document.getElementById('musicToggle');
-let musicPlaying = false;
+let musicPlaying = true;
 
 musicBtn.addEventListener('click', () => {
   if (musicPlaying) {
     music.pause();
-    musicBtn.textContent = '🎵';
+    musicBtn.textContent = '🔇';
     musicPlaying = false;
   } else {
     music.play().catch(() => {}); // autoplay policy
-    musicBtn.textContent = '🔇';
+    musicBtn.textContent = '🎵';
     musicPlaying = true;
   }
 });
@@ -546,3 +546,4 @@ function launchConfetti() {
 loadMessages();
 loadStories();
 setTimeout(() => launchConfetti(), 1200);
+
