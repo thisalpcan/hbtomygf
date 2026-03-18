@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nurefşan'ın Doğum Günü 🎂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- Floating petals -->
+  <div class="petals-container" id="petals"></div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-brand">🎂 Nurefşan</span>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" id="musicToggle" title="Müzik aç/kapat">🎵</button>
+      <button class="icon-btn" id="themeToggle" title="Tema değiştir">🌙</button>
+      <a href="#secret" class="icon-btn" title="Gizli mesaj">🔐</a>
+    </div>
+  </header>
+
+  <!-- Music -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- ── HERO ─────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <p class="hero-label">✦ Doğum Günün Kutlu Olsun ✦</p>
+      <h1 class="hero-name">Nurefşan'ım</h1>
+      <p class="hero-subtitle">Bugün senin günün, <em>dilediğin her şey senin</em> olsun. 🕯️</p>
+      <div class="hero-divider"><span></span><span class="diamond">◆</span><span></span></div>
+      <p class="hero-desc">Seni seven herkes buraya bir şeyler bıraktı.<br/>Okumaya hazır mısın?</p>
+      <a href="#wishcard" class="btn-scroll">Başla ✨</a>
+    </div>
+    <div class="candles-row">
+      <span class="candle">🕯️</span><span class="candle">🕯️</span>
+      <span class="candle">🕯️</span><span class="candle">🕯️</span><span class="candle">🕯️</span>
+    </div>
+  </section>
+
+  <!-- ── FLIP CARD ─────────────────────────────── -->
+  <section class="wishcard-section" id="wishcard">
+    <div class="section-header">
+      <p class="section-label">✦ Sana Özel ✦</p>
+      <h2 class="section-title">Dilek Kartın</h2>
+      <p class="section-sub">Kartı çevirmek için tıkla 💌</p>
+    </div>
+    <div class="flip-card" id="flipCard">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-deco">🎀</div>
+          <p class="flip-hint">Tıkla &amp; çevir</p>
+          <div class="flip-shimmer"></div>
+        </div>
+        <div class="flip-back">
+          <p class="flip-back-label">✦ İyi ki doğdun ✦</p>
+          <p class="flip-back-message">Nurefşan, hayatımıza renk katan, gülüşünle her yeri aydınlatan sen olmasan bu dünya çok eksik olurdu. Yeni yaşında, sağlık ve sonsuz mutluluk dileğiyle... 🌸</p>
+          <p class="flip-back-sign">— Sevenlerinden 💖</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STORY CARDS ───────────────────────────── -->
+  <section class="stories-section" id="stories">
+    <div class="section-header">
+      <p class="section-label">✦ Anılar ✦</p>
+      <h2 class="section-title">Seni Nasıl Tanıdık</h2>
+    </div>
+    <div class="stories-track" id="storiesTrack">
+      <!-- JS ile doldurulur -->
+      <div class="story-empty">Henüz anı yok — ilk anıyı sen yaz! 📖</div>
+    </div>
+  </section>
+
+  <!-- ── MESSAGE WALL ──────────────────────────── -->
+  <section class="messages-section" id="messages">
+    <div class="section-header">
+      <p class="section-label">✦ Mesaj Duvarı ✦</p>
+      <h2 class="section-title">Sevdiklerinden Gelenler</h2>
+    </div>
+    <div class="messages-grid" id="messagesGrid">
+      <div class="loading-card"><div class="spinner"></div><p>Yükleniyor...</p></div>
+    </div>
+  </section>
+
+  <!-- ── WRITE ─────────────────────────────────── -->
+  <section class="write-section" id="write">
+    <div class="write-card">
+      <div class="write-card-deco">💌</div>
+      <h2 class="write-title">Bir Mesaj Bırak</h2>
+      <p class="write-subtitle">Nurefşan'a ne söylemek istersin?</p>
+
+      <div class="msg-tabs">
+        <button class="tab-btn active" data-tab="text">✏️ Yazı</button>
+        <button class="tab-btn" data-tab="voice">🎤 Ses</button>
+        <button class="tab-btn" data-tab="story">📖 Anı</button>
+      </div>
+
+      <form class="message-form" id="messageForm">
+        <div class="form-group">
+          <label>Adın</label>
+          <input type="text" id="authorInput" placeholder="Adın nedir?" required maxlength="50"/>
+        </div>
+
+        <!-- TEXT -->
+        <div class="tab-content active" id="tab-text">
+          <div class="form-group">
+            <label>Mesajın</label>
+            <textarea id="messageInput" placeholder="Nurefşan'a güzel bir şeyler yaz..." maxlength="500" rows="4"></textarea>
+            <span class="char-count" id="charCount">0 / 500</span>
+          </div>
+          <div class="form-group">
+            <label>Emoji seç</label>
+            <div class="emoji-picker" id="emojiPicker">
+              <button type="button" class="emoji-btn active" data-emoji="🎂">🎂</button>
+              <button type="button" class="emoji-btn" data-emoji="🌸">🌸</button>
+              <button type="button" class="emoji-btn" data-emoji="💖">💖</button>
+              <button type="button" class="emoji-btn" data-emoji="✨">✨</button>
+              <button type="button" class="emoji-btn" data-emoji="🌹">🌹</button>
+              <button type="button" class="emoji-btn" data-emoji="🦋">🦋</button>
+              <button type="button" class="emoji-btn" data-emoji="🎀">🎀</button>
+              <button type="button" class="emoji-btn" data-emoji="🥂">🥂</button>
+              <button type="button" class="emoji-btn" data-emoji="🌙">🌙</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- VOICE -->
+        <div class="tab-content" id="tab-voice">
+          <div class="voice-recorder">
+            <p class="voice-hint">Sesli mesaj kaydet (max 60 sn)</p>
+            <div class="voice-controls">
+              <button type="button" class="btn-record" id="recordBtn">🎤 Kayıt Başlat</button>
+              <span class="record-timer" id="recordTimer" style="display:none">⏺ <span id="timerVal">0:00</span></span>
+            </div>
+            <div class="voice-waveform" id="waveform">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="voice-preview" id="voicePreview" style="display:none">
+              <audio id="voicePlayback" controls></audio>
+              <button type="button" class="btn-discard" id="discardVoice">🗑 Sil &amp; tekrar kaydet</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STORY -->
+        <div class="tab-content" id="tab-story">
+          <div class="form-group">
+            <label>Onu nasıl tanıdın?</label>
+            <textarea id="storyInput" placeholder="Nurefşan ile nasıl tanıştın? Birlikte yaşadığın güzel bir an..." maxlength="600" rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Kaç yıldır tanıyorsunuz?</label>
+            <input type="number" id="yearsInput" placeholder="örn: 3" min="0" max="99" class="years-input"/>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span class="btn-text">Gönder 💌</span>
+          <span class="btn-loading" style="display:none">Gönderiliyor...</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── SECRET ────────────────────────────────── -->
+  <section class="secret-section" id="secret">
+    <div class="secret-card">
+      <div class="secret-lock-icon">🔐</div>
+      <h2 class="secret-title">Gizli Mesaj</h2>
+      <p class="secret-sub">Sadece senin için...</p>
+      <div class="secret-unlock-row" id="secretUnlockRow">
+        <input type="password" id="secretPassword" placeholder="Şifreyi gir..." maxlength="30"/>
+        <button class="btn-unlock" id="unlockBtn">Aç ✨</button>
+      </div>
+      <div class="secret-message-box" id="secretMessageBox" style="display:none">
+        <p id="secretMessageText"></p>
+      </div>
+      <p class="secret-hint">💡 Şifreyi sadece Nurefşan bilir</p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────── -->
+  <footer class="footer">
+    <p>Yapıldı ❤️ ile · Nurefşan'a özel</p>
+    <p class="footer-small">✦ İyi ki doğdun ✦</p>
+  </footer>
+
+  <!-- ── ADMIN MODAL ───────────────────────────── -->
+  <div class="modal-overlay" id="adminOverlay" style="display:none">
+    <div class="modal-box">
+      <button class="modal-close" id="adminClose">✕</button>
+      <h3 class="modal-title">🛡 Admin Paneli</h3>
+      <div id="adminLoginForm">
+        <input type="password" id="adminPassword" placeholder="Admin şifre..." class="admin-pw-input"/>
+        <button class="btn-submit" id="adminLoginBtn">Giriş</button>
+      </div>
+      <div id="adminContent" style="display:none">
+        <p class="admin-stats" id="adminStats"></p>
+        <div id="adminMsgList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin trigger: footer'a 5 kez tıkla -->
+  <div id="adminTrigger"></div>
+
+  <div class="toast" id="toast"></div>
+  <canvas id="confettiCanvas"></canvas>
+
+  <script src="app.js"></script>
+</body>
+</html>
