@@ -541,9 +541,185 @@ function launchConfetti() {
 }
 
 // =============================================
+//  STAR MAP — 24 Mart 2008, Kahramanmaraş
+// =============================================
+function drawStarMap() {
+  const canvas = document.getElementById('starCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = 680, H = 520;
+  canvas.width = W; canvas.height = H;
+
+  // Background
+  const bgGrad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W*0.7);
+  bgGrad.addColorStop(0, '#0d0820');
+  bgGrad.addColorStop(0.5, '#080514');
+  bgGrad.addColorStop(1, '#020108');
+  ctx.fillStyle = bgGrad;
+  ctx.roundRect(0, 0, W, H, 16);
+  ctx.fill();
+
+  // Milky way
+  ctx.save();
+  ctx.globalAlpha = 0.07;
+  for (let i = 0; i < 800; i++) {
+    const x = 180 + Math.sin(i * 0.05) * 60 + (Math.random() - 0.5) * 120;
+    const y = i * (H / 800) + (Math.random() - 0.5) * 20;
+    ctx.beginPath();
+    ctx.arc(x, y, Math.random() * 1.2, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff'; ctx.fill();
+  }
+  ctx.globalAlpha = 1; ctx.restore();
+
+  // Seeded random background stars
+  function seededRand(seed) {
+    let s = seed;
+    return () => { s = (s * 1664525 + 1013904223) & 0xffffffff; return (s >>> 0) / 0xffffffff; };
+  }
+  const rand = seededRand(20080324);
+  for (let i = 0; i < 320; i++) {
+    const x = rand() * W, y = rand() * H, r = rand() * 0.9 + 0.2, a = rand() * 0.5 + 0.2;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${a})`; ctx.fill();
+  }
+
+  // Constellations
+  const constellations = [
+    { name:'Orion', namePos:[105,225], stars:[
+        {x:80,y:120,r:2.8,color:'#aaddff',name:'Betelgeuse'},{x:140,y:115,r:2.2,color:'#ffffff',name:'Bellatrix'},
+        {x:90,y:165,r:1.8,color:'#ffffff'},{x:115,y:170,r:1.8,color:'#ffffff'},{x:140,y:165,r:1.8,color:'#ffffff'},
+        {x:85,y:215,r:2.5,color:'#aaaaff',name:'Rigel'},{x:145,y:210,r:1.8,color:'#ffffff',name:'Saiph'},
+      ], lines:[[0,1],[0,2],[1,3],[2,3],[2,4],[3,4],[4,5],[5,6],[2,6]] },
+    { name:'Büyükayı', namePos:[430,85], stars:[
+        {x:370,y:60,r:2.2,color:'#ffffff'},{x:400,y:50,r:2.0,color:'#ffffff'},{x:430,y:55,r:2.2,color:'#ffffff'},
+        {x:455,y:70,r:2.0,color:'#ffffff'},{x:480,y:95,r:1.8,color:'#ffffff'},{x:510,y:85,r:1.8,color:'#ffffff'},{x:535,y:65,r:2.0,color:'#ffffff'},
+      ], lines:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]] },
+    { name:'Aslan', namePos:[510,200], stars:[
+        {x:490,y:155,r:2.8,color:'#ffffcc',name:'Regulus'},{x:530,y:145,r:1.8,color:'#ffffff'},
+        {x:560,y:160,r:1.8,color:'#ffffff'},{x:575,y:195,r:2.0,color:'#ffffff',name:'Denebola'},
+        {x:545,y:210,r:1.6,color:'#ffffff'},{x:515,y:200,r:1.6,color:'#ffffff'},
+      ], lines:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[5,2]] },
+    { name:'İkizler', namePos:[250,95], stars:[
+        {x:225,y:65,r:2.5,color:'#ffffaa',name:'Castor'},{x:260,y:60,r:2.6,color:'#ffddaa',name:'Pollux'},
+        {x:215,y:100,r:1.6,color:'#ffffff'},{x:250,y:95,r:1.6,color:'#ffffff'},
+        {x:205,y:135,r:1.6,color:'#ffffff'},{x:240,y:130,r:1.6,color:'#ffffff'},
+      ], lines:[[0,2],[1,3],[2,4],[3,5],[2,3],[4,5]] },
+    { name:'Boğa', namePos:[185,115], stars:[
+        {x:175,y:95,r:2.8,color:'#ffaaaa',name:'Aldebaran'},{x:205,y:80,r:1.6,color:'#ffffff'},
+        {x:160,y:75,r:1.4,color:'#aaddff'},{x:145,y:70,r:1.4,color:'#aaddff'},
+        {x:150,y:82,r:1.4,color:'#aaddff'},{x:155,y:90,r:1.4,color:'#aaddff'},
+      ], lines:[[0,1],[0,2],[2,3],[3,4],[4,5],[5,0]] },
+    { name:'Kız Burcu', namePos:[390,350], stars:[
+        {x:390,y:320,r:2.5,color:'#ffffcc',name:'Spica'},{x:360,y:310,r:1.6,color:'#ffffff'},
+        {x:345,y:335,r:1.6,color:'#ffffff'},{x:415,y:330,r:1.6,color:'#ffffff'},{x:430,y:355,r:1.6,color:'#ffffff'},
+      ], lines:[[0,1],[1,2],[0,3],[3,4]] },
+  ];
+
+  const planets = [
+    {x:300,y:280,r:5,color:'#ffcc44',glow:'rgba(255,200,50,0.35)',name:'Jüpiter',symbol:'♃'},
+    {x:200,y:340,r:4,color:'#ff9999',glow:'rgba(255,100,80,0.3)',name:'Mars',symbol:'♂'},
+    {x:430,y:170,r:4.5,color:'#ffaadd',glow:'rgba(255,150,200,0.3)',name:'Venüs',symbol:'♀'},
+    {x:155,y:380,r:3.5,color:'#aaccff',glow:'rgba(100,150,255,0.25)',name:'Satürn',symbol:'♄'},
+  ];
+
+  // Moon
+  const mx = 560, my = 380, mr = 18;
+  const mg = ctx.createRadialGradient(mx-4, my-4, 2, mx, my, mr);
+  mg.addColorStop(0,'#fffbe0'); mg.addColorStop(0.6,'#f0e080'); mg.addColorStop(1,'#c8b840');
+  ctx.beginPath(); ctx.arc(mx, my, mr, 0, Math.PI*2); ctx.fillStyle = mg; ctx.fill();
+  ctx.beginPath(); ctx.arc(mx+10, my-2, mr-1, 0, Math.PI*2); ctx.fillStyle = '#0d0820'; ctx.fill();
+  ctx.save(); ctx.globalAlpha = 0.15;
+  ctx.beginPath(); ctx.arc(mx, my, mr+10, 0, Math.PI*2); ctx.fillStyle = '#fffbe0'; ctx.fill();
+  ctx.globalAlpha = 1; ctx.restore();
+  ctx.font = '11px sans-serif'; ctx.fillStyle = '#d4a843';
+  ctx.textAlign = 'center'; ctx.fillText('🌙 Ay · Yay', mx, my + mr + 14);
+
+  // Constellation lines
+  constellations.forEach(con => {
+    ctx.save(); ctx.strokeStyle = 'rgba(180,160,255,0.25)';
+    ctx.lineWidth = 0.8; ctx.setLineDash([3,4]);
+    con.lines.forEach(([a,b]) => {
+      ctx.beginPath(); ctx.moveTo(con.stars[a].x, con.stars[a].y);
+      ctx.lineTo(con.stars[b].x, con.stars[b].y); ctx.stroke();
+    });
+    ctx.restore();
+  });
+
+  // Stars + labels
+  constellations.forEach(con => {
+    con.stars.forEach(star => {
+      ctx.save(); ctx.globalAlpha = 0.3;
+      const g = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, star.r*4);
+      g.addColorStop(0, star.color); g.addColorStop(1, 'transparent');
+      ctx.beginPath(); ctx.arc(star.x, star.y, star.r*4, 0, Math.PI*2);
+      ctx.fillStyle = g; ctx.fill(); ctx.globalAlpha = 1; ctx.restore();
+      ctx.beginPath(); ctx.arc(star.x, star.y, star.r, 0, Math.PI*2);
+      ctx.fillStyle = star.color; ctx.fill();
+      if (star.name) {
+        ctx.font = '10px sans-serif'; ctx.fillStyle = 'rgba(220,200,255,0.75)';
+        ctx.textAlign = 'center'; ctx.fillText(star.name, star.x, star.y - star.r - 5);
+      }
+    });
+    ctx.font = '500 11px sans-serif'; ctx.fillStyle = 'rgba(212,168,67,0.85)';
+    ctx.textAlign = 'center'; ctx.fillText(con.name, con.namePos[0], con.namePos[1]);
+  });
+
+  // Planets
+  planets.forEach(p => {
+    ctx.save(); ctx.globalAlpha = 0.45;
+    const pg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*5);
+    pg.addColorStop(0, p.glow); pg.addColorStop(1, 'transparent');
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r*5, 0, Math.PI*2);
+    ctx.fillStyle = pg; ctx.fill(); ctx.globalAlpha = 1; ctx.restore();
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fillStyle = p.color; ctx.fill();
+    ctx.font = '11px sans-serif'; ctx.fillStyle = p.color;
+    ctx.textAlign = 'center'; ctx.fillText(p.symbol + ' ' + p.name, p.x, p.y + p.r + 13);
+  });
+
+  // Sun / birth marker
+  const sx = 310, sy = 420;
+  for (let i = 0; i < 12; i++) {
+    const angle = (i/12)*Math.PI*2, len = i%2===0?14:9;
+    ctx.beginPath();
+    ctx.moveTo(sx+Math.cos(angle)*6, sy+Math.sin(angle)*6);
+    ctx.lineTo(sx+Math.cos(angle)*len, sy+Math.sin(angle)*len);
+    ctx.strokeStyle = '#ffd700'; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+  ctx.beginPath(); ctx.arc(sx, sy, 7, 0, Math.PI*2); ctx.fillStyle = '#ffd700'; ctx.fill();
+  ctx.font = '11px sans-serif'; ctx.fillStyle = '#ffd700';
+  ctx.textAlign = 'center'; ctx.fillText('☀ Güneş · Koç', sx, sy+22);
+
+  // Horizon
+  ctx.save(); ctx.globalAlpha = 0.12;
+  ctx.beginPath(); ctx.moveTo(0, H-30); ctx.lineTo(W, H-30);
+  ctx.strokeStyle = '#aaddff'; ctx.lineWidth = 1; ctx.stroke();
+  ctx.fillStyle = '#050210'; ctx.fillRect(0, H-30, W, 30);
+  ctx.globalAlpha = 0.5; ctx.font = '10px sans-serif';
+  ctx.fillStyle = '#5566aa'; ctx.textAlign = 'left'; ctx.fillText('UFUK', 16, H-14);
+  ctx.globalAlpha = 1; ctx.restore();
+
+  // Info label
+  ctx.font = '500 12px sans-serif'; ctx.fillStyle = 'rgba(212,168,67,0.7)';
+  ctx.textAlign = 'right'; ctx.fillText('Kahramanmaraş · 37.6°K 36.9°D · 22:00', W-16, 24);
+
+  // Compass
+  ['K','D','G','B'].forEach((dir, i) => {
+    const angle = i*Math.PI/2 - Math.PI/2, cx = 50, cy = H-60, cr = 22;
+    ctx.font = '10px sans-serif';
+    ctx.fillStyle = i===0 ? '#ff6666' : 'rgba(180,160,200,0.6)';
+    ctx.textAlign = 'center';
+    ctx.fillText(dir, cx+Math.cos(angle)*cr, cy+Math.sin(angle)*cr+4);
+  });
+  ctx.beginPath(); ctx.arc(50, H-60, 16, 0, Math.PI*2);
+  ctx.strokeStyle = 'rgba(180,160,200,0.25)'; ctx.lineWidth = 0.5; ctx.stroke();
+}
+
+// =============================================
 //  INIT
 // =============================================
 loadMessages();
 loadStories();
+drawStarMap();
 setTimeout(() => launchConfetti(), 1200);
 
