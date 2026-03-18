@@ -1,7 +1,7 @@
 // =============================================
 //  CONFIG
 // =============================================
-const API_BASE     = 'http://localhost:3000/api';
+const API_BASE = 'https://hbtomygf.onrender.com/api';
 const ADMIN_PASS   = 'dgkoadmin123';    // ← admin şifreni buradan değiştir
 const SECRET_PASS  = 'dgkotome';    // ← gizli mesaj şifresi
 const SECRET_MSG   = `Seni çok seviyorum Nurefşan'ım. Bu sitenin her köşesi, seni ne kadar sevdiğimizi görmen için yapıldı. İyi ki doğdun, iyi ki varsın. ❤️`;
