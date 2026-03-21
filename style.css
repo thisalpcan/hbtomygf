@@ -764,3 +764,105 @@ a:hover ~ .cursor, button:hover ~ .cursor { width: 28px; height: 28px; }
   .secret-card { padding: 36px 24px; }
   .modal-box { padding: 28px 20px; }
 }
+
+
+/* =============================================
+   MOBILE RESPONSIVE — Tüm ekranlar
+   ============================================= */
+
+/* Cursor mobilde gereksiz, kapat */
+@media (pointer: coarse) {
+  .cursor, .cursor-trail { display: none; }
+  body { cursor: default; }
+}
+
+@media (max-width: 768px) {
+
+  /* TOPBAR */
+  .topbar { padding: 0 16px; }
+  .topbar-brand { font-size: 0.95rem; }
+  .icon-btn { width: 32px; height: 32px; font-size: 0.85rem; }
+
+  /* HERO */
+  .hero { padding: 80px 20px 40px; min-height: 100svh; }
+  .hero-name { font-size: clamp(3rem, 18vw, 5rem); }
+  .hero-subtitle { font-size: 1rem; }
+  .hero-desc { font-size: 0.9rem; }
+  .btn-scroll { padding: 12px 30px; font-size: 0.78rem; }
+  .candles-row { font-size: 1.4rem; gap: 10px; margin-top: 32px; }
+
+  /* SECTION HEADERS */
+  .section-title { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+  .section-sub { font-size: 0.82rem; }
+
+  /* FLIP CARD */
+  .wishcard-section { padding: 50px 20px; }
+  .flip-card { width: 100%; max-width: 340px; height: 220px; }
+  .flip-back-message { font-size: 0.88rem; }
+
+  /* STAR MAP */
+  .starmap-section { padding: 50px 16px; }
+  .starmap-badges { gap: 8px; }
+  .star-badge { font-size: 0.72rem; padding: 5px 12px; }
+  .starmap-caption { font-size: 0.88rem; }
+
+  /* STORY CARDS */
+  .stories-section { padding: 50px 0; }
+  .stories-track { padding: 12px 20px 20px; gap: 14px; }
+  .story-card { min-width: 230px; max-width: 250px; padding: 22px 18px; }
+  .story-years { font-size: 2rem; }
+
+  /* MESSAGE GRID */
+  .messages-section { padding: 50px 16px; }
+  .messages-grid { grid-template-columns: 1fr; gap: 16px; }
+  .message-card { padding: 22px 20px; }
+  .card-message { font-size: 0.98rem; }
+
+  /* WRITE SECTION */
+  .write-section { padding: 20px 16px 60px; }
+  .write-card { padding: 30px 20px; border-radius: 18px; }
+  .write-title { font-size: 1.6rem; }
+  .write-subtitle { font-size: 0.82rem; margin-bottom: 20px; }
+  .msg-tabs { gap: 5px; }
+  .tab-btn { font-size: 0.75rem; padding: 9px 0; }
+  .emoji-picker { gap: 6px; }
+  .emoji-btn { width: 38px; height: 38px; font-size: 1.15rem; }
+  .form-group input,
+  .form-group textarea { font-size: 16px; /* iOS zoom engellemek için 16px şart */ }
+  .btn-submit { width: 100%; padding: 15px; }
+  .years-input { width: 100px !important; }
+
+  /* VOICE RECORDER */
+  .btn-record { font-size: 0.8rem; padding: 9px 16px; }
+
+  /* SECRET SECTION */
+  .secret-section { padding: 40px 16px 60px; }
+  .secret-card { padding: 36px 20px; border-radius: 18px; }
+  .secret-title { font-size: 1.6rem; }
+  .secret-unlock-row { flex-direction: column; align-items: center; gap: 10px; }
+  .secret-unlock-row input { width: 100%; max-width: 280px; }
+  .btn-unlock { width: 100%; max-width: 280px; padding: 12px; }
+
+  /* ADMIN MODAL */
+  .modal-box { padding: 24px 18px; border-radius: 18px; }
+  .modal-title { font-size: 1.3rem; }
+  #adminLoginForm { flex-direction: column; }
+  .admin-pw-input { width: 100%; }
+  .admin-msg-item { flex-direction: column; gap: 10px; }
+  .admin-msg-actions { flex-direction: row; }
+
+  /* FOOTER */
+  .footer { padding: 24px 16px; font-size: 0.8rem; }
+
+  /* TOAST */
+  .toast { width: 90%; text-align: center; white-space: normal; font-size: 0.82rem; }
+}
+
+/* Küçük ekranlar (iPhone SE vb.) */
+@media (max-width: 375px) {
+  .hero-name { font-size: 3rem; }
+  .flip-card { height: 200px; }
+  .write-card { padding: 24px 16px; }
+  .secret-card { padding: 28px 16px; }
+  .emoji-btn { width: 34px; height: 34px; font-size: 1rem; }
+}
